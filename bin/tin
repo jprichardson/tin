@@ -1,0 +1,67 @@
+#!/usr/bin/env node
+
+var program = require('commander')
+  , path = require('path')
+  , fs = require('fs')
+
+program.version(require('../package.json').version)
+
+//remove default -v, --version handling
+program.options = []
+delete program._events.version
+
+if (process.argv.length === 3) //if only -v or --version
+  if (process.argv[2].toLowerCase() === '-v' || process.argv[2] === '--version')
+    return console.log(program._version)
+
+program.option('-p, --path [path]', 'The path that contains the package files. Defaults to the current directory.', process.cwd())
+  .option('-v, --version [version]', 'Update package versions.')
+  .option('-d, --desc [description]', 'Update package descriptions.')
+  .option('-k, --keywords [keywords]', 'Update package keywords.')
+  .option('-m, --main [script]', 'Update main script file.')
+  .parse(process.argv)
+
+var npmFile = path.join(program.path, 'package.json')
+  , componentFile = path.join(program.path, 'component.json')
+  , bowerFile = path.join(program.p, 'bower.json')
+
+
+if (fs.existsSync(npmFile)) {
+  var data = fs.readFileSync(npmFile, 'utf8')
+  updateCommonFields(program, data)
+
+  if (program.main)
+    data.main = program.main
+}
+
+if (fs.existsSync(componentFile)) {
+  var data = fs.readFileSync(componentFile, 'utf8')
+  updateCommonFields(program, data)
+
+  if (program.main) {
+    if (data.scripts.indexOf(program.main) < 0)
+      data.scripts.unshift(program.main)
+  }
+}
+
+if (fs.existsSync(bowerFile)) {
+  var data = fs.readFileSync(componentFile, 'utf8')
+  updateCommonFields(program, data)
+
+  if (program.main)
+    data.main = program.main
+}
+
+function updateCommonFields (program, data) {
+  if (program.version)
+    data.version = program.version
+  
+  if (program.description)
+    data.description = program.description
+  
+  if (program.keywords) {
+    var words = program.keywords.split(',')
+    words = words.map(function(word) { return word.trim() })
+    data.keywords = words
+  }
+}
