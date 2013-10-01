@@ -1,12 +1,12 @@
 {
   "name": "tin",
   "version": "0.0.1",
-  "description": "",
+  "description": "Easily manage npm package.json, component component.json, and bower bower.json files.",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "jprichardson/tin"
   },
-  "keywords": [],
+  "keywords": ["manage", "packages", "package", "bower", "component", "browser", "client"],
   "author": "JP Richardson <jprichardson@gmail.com>",
   "licenses": [
     {
