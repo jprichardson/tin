@@ -17,8 +17,6 @@
   "dependencies": {
     "commander": "~2.0.0"
   },
-  "devDependencies": {},
-  "main": "./lib/tin.js",
   "scripts": {
     "test": "mocha test"
   },
