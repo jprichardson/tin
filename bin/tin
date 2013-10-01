@@ -15,40 +15,60 @@ if (process.argv.length === 3) //if only -v or --version
     return console.log(program._version)
 
 program.option('-p, --path [path]', 'The path that contains the package files. Defaults to the current directory.', process.cwd())
-  .option('-v, --version [version]', 'Update package versions.')
   .option('-d, --desc [description]', 'Update package descriptions.')
-  .option('-k, --keywords [keywords]', 'Update package keywords.')
+  .option('-k, --keywords [keywords]', 'Add to package keywords.')
   .option('-m, --main [script]', 'Update main script file.')
+  .option('-n, --name [name]', 'Update name of the packgae.')
+  .option('-r, --repo [repo]', 'Update source repository (GitHub shorthand).')
+  .option('-v, --version [version]', 'Update package versions.')
   .parse(process.argv)
 
 var files = ['package.json', 'component.json', 'bower.json']
 files.forEach(function(file) {
   var filePath = path.join(program.path, file)
   if (fs.existsSync(filePath)) {
-    var data = JSON.parse(fs.readFileSync(npmFile, 'utf8'))
+    var data = JSON.parse(fs.readFileSync(filePath, 'utf8'))
     updateCommonFields(program, data)
 
-    if (program.main)
-      if (file == 'component.json')
+    if (program.main) {
+      if (file == 'component.json') {
         if (data.scripts.indexOf(program.main) < 0)
           data.scripts.unshift(program.main)
-      else 
+      } else {
         data.main = program.main
+      }
+    }
+
+    if (program.repo) {
+      if (file == 'package.json') {
+        if (!data.repository) data.repository = {url: '', type: 'git'}
+        data.repository.url = program.repo
+      } else  {
+        data.repo = program.repo
+      }
+    }
 
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8')
   }
 })
 
 function updateCommonFields (program, data) {
-  if (program.version)
+  if (typeof program.version != 'function') //hardcoded commander.js
     data.version = program.version
   
-  if (program.description)
-    data.description = program.description
+  if (typeof program.desc)
+    data.description = program.desc //not supported by bower, but it's going there anyways
   
-  if (program.keywords) {
-    var words = program.keywords.split(',')
-    words = words.map(function(word) { return word.trim() })
-    data.keywords = words
+  if (typeof program.keywords != 'undefined') {
+    if (typeof program.keywords == 'boolean' || program.keywords.trim() === '') {
+      data.keywords = []
+    } else {
+      var words = program.keywords.split(',')
+      words = words.map(function(word) { return word.trim() })
+      data.keywords = data.keywords.concat(words)
+    }
   }
+
+  if (program.name)
+    data.name = program.name
 }
