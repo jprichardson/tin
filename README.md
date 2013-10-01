@@ -12,7 +12,7 @@ Why?
 Installation
 ------------
 
-    npm install tin
+    npm install -g tin
 
 
 
