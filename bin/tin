@@ -21,36 +21,23 @@ program.option('-p, --path [path]', 'The path that contains the package files. D
   .option('-m, --main [script]', 'Update main script file.')
   .parse(process.argv)
 
-var npmFile = path.join(program.path, 'package.json')
-  , componentFile = path.join(program.path, 'component.json')
-  , bowerFile = path.join(program.p, 'bower.json')
+var files = ['package.json', 'component.json', 'bower.json']
+files.forEach(function(file) {
+  var filePath = path.join(program.path, file)
+  if (fs.existsSync(filePath)) {
+    var data = JSON.parse(fs.readFileSync(npmFile, 'utf8'))
+    updateCommonFields(program, data)
 
+    if (program.main)
+      if (file == 'component.json')
+        if (data.scripts.indexOf(program.main) < 0)
+          data.scripts.unshift(program.main)
+      else 
+        data.main = program.main
 
-if (fs.existsSync(npmFile)) {
-  var data = fs.readFileSync(npmFile, 'utf8')
-  updateCommonFields(program, data)
-
-  if (program.main)
-    data.main = program.main
-}
-
-if (fs.existsSync(componentFile)) {
-  var data = fs.readFileSync(componentFile, 'utf8')
-  updateCommonFields(program, data)
-
-  if (program.main) {
-    if (data.scripts.indexOf(program.main) < 0)
-      data.scripts.unshift(program.main)
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8')
   }
-}
-
-if (fs.existsSync(bowerFile)) {
-  var data = fs.readFileSync(componentFile, 'utf8')
-  updateCommonFields(program, data)
-
-  if (program.main)
-    data.main = program.main
-}
+})
 
 function updateCommonFields (program, data) {
   if (program.version)
