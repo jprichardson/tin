@@ -1,5 +1,5 @@
-Node.js - tin
-================
+tin
+===
 
 Easily manage npm package.json, component component.json, and bower bower.json files.
 
