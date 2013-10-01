@@ -1,20 +1,24 @@
 {
-  "name" : "tin", 
-  "version" : "0.0.1",
-  "description" :"",
-  "repository" : {
-    "type" : "git", 
-    "url" : ""
+  "name": "tin",
+  "version": "0.0.1",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": ""
   },
-  "keywords" : [],
-  "author" : "JP Richardson <jprichardson@gmail.com>",
-  "licenses" : [ {
-    "type" : "MIT",
-    "url" : ""
-  }],
-  "dependencies" : {},
-   "devDependencies":{},
-  "main" : "./lib/tin.js",
+  "keywords": [],
+  "author": "JP Richardson <jprichardson@gmail.com>",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": ""
+    }
+  ],
+  "dependencies": {
+    "commander": "~2.0.0"
+  },
+  "devDependencies": {},
+  "main": "./lib/tin.js",
   "scripts": {
     "test": "mocha test"
   },
