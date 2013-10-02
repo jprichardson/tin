@@ -1,7 +1,7 @@
 {
   "name": "tin",
   "version": "0.0.1",
-  "description": "Easily manage npm package.json, component component.json, and bower bower.json files.",
+  "description": "Easily manage NPM, component, and bower package files.",
   "repository": {
     "type": "git",
     "url": "jprichardson/tin"

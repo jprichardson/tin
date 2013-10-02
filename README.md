@@ -1,7 +1,7 @@
 tin
 ===
 
-Easily manage npm package.json, component component.json, and bower bower.json files.
+Easily manage NPM, component, and bower package files.
 
 
 Why?
