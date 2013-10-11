@@ -32,6 +32,7 @@ files.forEach(function(file) {
 
     if (program.main) {
       if (file == 'component.json') {
+        if (!data.scripts) data.scripts = []
         if (data.scripts.indexOf(program.main) < 0)
           data.scripts.unshift(program.main)
       } else {
@@ -56,7 +57,7 @@ function updateCommonFields (program, data) {
   if (typeof program.version != 'function') //hardcoded commander.js
     data.version = program.version
   
-  if (typeof program.desc)
+  if (program.desc)
     data.description = program.desc //not supported by bower, but it's going there anyways
   
   if (typeof program.keywords != 'undefined') {
