@@ -6,7 +6,15 @@
     "type": "git",
     "url": "jprichardson/tin"
   },
-  "keywords": ["manage", "packages", "package", "bower", "component", "browser", "client"],
+  "keywords": [
+    "manage",
+    "packages",
+    "package",
+    "bower",
+    "component",
+    "browser",
+    "client"
+  ],
   "author": "JP Richardson <jprichardson@gmail.com>",
   "licenses": [
     {
@@ -23,5 +31,10 @@
   "bin": {
     "tin": "./bin/tin"
   },
-  "preferGlobal": true
+  "preferGlobal": true,
+  "devDependencies": {
+    "testutil": "~0.6.0",
+    "mocha": "*",
+    "fs-extra": "~0.7.1"
+  }
 }
