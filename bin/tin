@@ -35,9 +35,9 @@ files.forEach(function(file) {
         if (!data.scripts) data.scripts = []
         if (data.scripts.indexOf(program.main) < 0)
           data.scripts.unshift(program.main)
-      } else {
-        data.main = program.main
       }
+      
+      data.main = program.main
     }
 
     if (program.repo) {
