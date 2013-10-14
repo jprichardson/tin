@@ -50,7 +50,7 @@ Any of the three files `package.json`, `component.json`, and `bower.json` must e
 
 update the packages version:
 
-   tin -v 0.0.1
+    tin -v 0.0.1
 
 
 ### description
