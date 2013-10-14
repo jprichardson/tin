@@ -18,6 +18,14 @@ Installation
 
 
 
+Specs
+-----
+
+- **component**: https://github.com/component/component/wiki/Spec
+- **npm**: https://npmjs.org/doc/json.html
+- **bower**: https://docs.google.com/document/d/1APq7oA9tNao1UYWyOm8dKqlRP2blVkROYLZ2fLIjtWc/edit (not sure if this is the most to date one)
+
+
 Usage
 -----
 
