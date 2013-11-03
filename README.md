@@ -38,12 +38,24 @@ Any of the three files `package.json`, `component.json`, and `bower.json` must e
 
       -h, --help                 output usage information
       -p, --path [path]          The path that contains the package files. Defaults to the current directory.
+      --create                   If any of the files don't exist, it creates them.
       -d, --desc [description]   Update package descriptions.
       -k, --keywords [keywords]  Add to package keywords.
       -m, --main [script]        Update main script file.
       -n, --name [name]          Update name of the packgae.
       -r, --repo [repo]          Update source repository (GitHub shorthand).
       -v, --version [version]    Update package versions.
+
+
+### create
+
+creates any of the package files if they don't exist:
+
+    tin --create
+
+also, if any of the files do exist, it won't overwrite them, can pass other params too:
+
+    tin --create -name awesome
 
 
 ### version
