@@ -1,3 +1,7 @@
+0.2.0 / 2013-11-01
+------------------
+* added `--create` flag, Closes #4
+
 0.1.0 / 2013-10-14
 ------------------
 * Output `main` according to component spec. Closes #2
