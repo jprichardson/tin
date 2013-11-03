@@ -15,6 +15,7 @@ if (process.argv.length === 3) //if only -v or --version
     return console.log(program._version)
 
 program.option('-p, --path [path]', 'The path that contains the package files. Defaults to the current directory.', process.cwd())
+  .option('--create', "If any of the files don't exist, it creates them.")
   .option('-d, --desc [description]', 'Update package descriptions.')
   .option('-k, --keywords [keywords]', 'Add to package keywords.')
   .option('-m, --main [script]', 'Update main script file.')
@@ -23,9 +24,14 @@ program.option('-p, --path [path]', 'The path that contains the package files. D
   .option('-v, --version [version]', 'Update package versions.')
   .parse(process.argv)
 
+
 var files = ['package.json', 'component.json', 'bower.json']
 files.forEach(function(file) {
   var filePath = path.join(program.path, file)
+  if (!fs.existsSync(filePath) && program.create) {
+    fs.writeFileSync(filePath, '{}', 'utf8')
+  }
+
   if (fs.existsSync(filePath)) {
     var data = JSON.parse(fs.readFileSync(filePath, 'utf8'))
     updateCommonFields(program, data)
