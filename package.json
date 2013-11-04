@@ -1,10 +1,10 @@
 {
   "name": "tin",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Easily manage NPM, component, and bower package files.",
   "repository": {
     "type": "git",
-    "url": "jprichardson/tin"
+    "url": "http://github.com/jprichardson/tin"
   },
   "keywords": [
     "manage",
@@ -13,7 +13,8 @@
     "bower",
     "component",
     "browser",
-    "client"
+    "client",
+    "browserify"
   ],
   "author": "JP Richardson <jprichardson@gmail.com>",
   "licenses": [
@@ -34,7 +35,7 @@
   "preferGlobal": true,
   "devDependencies": {
     "testutil": "~0.6.0",
-    "mocha": "*",
+    "mocha": "1.*",
     "fs-extra": "~0.7.1"
   }
 }

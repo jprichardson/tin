@@ -1,3 +1,9 @@
+0.3.0 / 2013-11-04
+------------------
+* exit and output if can't parse a file
+* added `--check` arg to verify if can parse files
+* ensure that `name`, `version`, and `description` are on top
+
 0.2.0 / 2013-11-01
 ------------------
 * added `--create` flag, Closes #4
