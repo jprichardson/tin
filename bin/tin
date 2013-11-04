@@ -16,6 +16,7 @@ if (process.argv.length === 3) //if only -v or --version
 
 program.option('-p, --path [path]', 'The path that contains the package files. Defaults to the current directory.', process.cwd())
   .option('--create', "If any of the files don't exist, it creates them.")
+  .option('--check', "Check to verify files are valid. Don't use in conjuction with any other options.")
   .option('-d, --desc [description]', 'Update package descriptions.')
   .option('-k, --keywords [keywords]', 'Add to package keywords.')
   .option('-m, --main [script]', 'Update main script file.')
@@ -33,7 +34,12 @@ files.forEach(function(file) {
   }
 
   if (fs.existsSync(filePath)) {
-    var data = JSON.parse(fs.readFileSync(filePath, 'utf8'))
+    try {
+      var data = JSON.parse(fs.readFileSync(filePath, 'utf8'))
+    } catch (e) {
+      console.error("\n  Unable to parse: %s. Aborting.\n", filePath)
+      process.exit(1)
+    }
     updateCommonFields(program, data)
 
     if (program.main) {
