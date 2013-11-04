@@ -36,9 +36,10 @@ if (program.check) {
       console.error("\n  Unable to parse: %s. Check failed.\n", filePath)
       process.exit(1)
     }
-    console.log('\n  Check passed.\n')
-    process.exit()
   })
+
+  console.log('\n  Check passed.\n')
+  process.exit()
 }
 
 files.forEach(function(file) {
@@ -75,6 +76,7 @@ files.forEach(function(file) {
       }
     }
 
+    data = organizeFields(data)
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8')
   }
 })
@@ -98,4 +100,39 @@ function updateCommonFields (program, data) {
 
   if (program.name)
     data.name = program.name
+}
+
+function organizeFields(obj) {
+  var fields = Object.keys(obj)
+  var newFields = []
+  var newObj = {}
+
+  //name first
+  var nameIdx = fields.indexOf('name')
+  if (nameIdx >= 0) {
+    fields.splice(nameIdx, 1) //delete it
+    newFields.push('name')
+  }
+
+  //version second
+  var versionIdx = fields.indexOf('version')
+  if (versionIdx >= 0) {
+    fields.splice(versionIdx, 1) //delete it
+    newFields.push('version')
+  }
+
+  //description third
+  var descIdx = fields.indexOf('description')
+  if (nameIdx >= 0) {
+    fields.splice(descIdx, 1) //delete it
+    newFields.push('description')
+  }
+
+  newFields = newFields.concat(fields)
+
+  newFields.forEach(function(field) {
+    newObj[field] = obj[field]
+  })
+
+  return newObj
 }
