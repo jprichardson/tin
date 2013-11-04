@@ -25,8 +25,22 @@ program.option('-p, --path [path]', 'The path that contains the package files. D
   .option('-v, --version [version]', 'Update package versions.')
   .parse(process.argv)
 
+  var files = ['package.json', 'component.json', 'bower.json']
 
-var files = ['package.json', 'component.json', 'bower.json']
+if (program.check) {
+  files.forEach(function(file) {
+    var filePath = path.join(program.path, file)
+    try {
+      var data = JSON.parse(fs.readFileSync(filePath, 'utf8'))
+    } catch (e) {
+      console.error("\n  Unable to parse: %s. Check failed.\n", filePath)
+      process.exit(1)
+    }
+    console.log('\n  Check passed.\n')
+    process.exit()
+  })
+}
+
 files.forEach(function(file) {
   var filePath = path.join(program.path, file)
   if (!fs.existsSync(filePath) && program.create) {
