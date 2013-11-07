@@ -3,6 +3,7 @@
 var program = require('commander')
   , path = require('path')
   , fs = require('fs')
+  , S = require('string')
 
 program.version(require('../package.json').version)
 
@@ -71,7 +72,13 @@ files.forEach(function(file) {
       if (file == 'package.json') {
         if (!data.repository) data.repository = {url: '', type: 'git'}
         data.repository.url = program.repo
-      } else  {
+      } else if (file == 'component.json' && program.repo.indexOf('github.com'))  {
+        var repoData = program.repo.split('/')
+        var ghrepo = repoData.pop()
+        var ghuser = repoData.pop()
+        if (S(ghrepo).endsWith('.git')) ghrepo = S(ghrepo).chompRight('.git')
+        data.repo = ghuser + '/' + ghrepo
+      } else {
         data.repo = program.repo
       }
     }
