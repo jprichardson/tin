@@ -1,3 +1,7 @@
+0.3.1 / 2013-11-05
+------------------
+* Repo now is properly set in component.json if github url is passed. Closes #8
+
 0.3.0 / 2013-11-04
 ------------------
 * exit and output if can't parse a file
