@@ -101,6 +101,7 @@ function updateCommonFields (program, data) {
     if (typeof program.keywords == 'boolean' || program.keywords.trim() === '') {
       data.keywords = []
     } else {
+      if (data.keywords == null) data.keywords = []
       var words = program.keywords.split(',')
       words = words.map(function(word) { return word.trim() })
       data.keywords = data.keywords.concat(words)
