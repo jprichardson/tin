@@ -1,6 +1,6 @@
 {
   "name": "tin",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Easily manage NPM, component, and bower package files.",
   "repository": {
     "type": "git",

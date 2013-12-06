@@ -1,3 +1,8 @@
+0.3.2 / 2013-12-06
+------------------
+* check shouldn't fail if package file doesn't exist. Closes #9
+* fix bug when keywords array didn't exist. Closes #10
+
 0.3.1 / 2013-11-05
 ------------------
 * Repo now is properly set in component.json if github url is passed. Closes #8
