@@ -31,6 +31,8 @@ program.option('-p, --path [path]', 'The path that contains the package files. D
 if (program.check) {
   files.forEach(function(file) {
     var filePath = path.join(program.path, file)
+    if (!fs.existsSync(filePath)) return //ignore if file doesnt exist
+    
     try {
       var data = JSON.parse(fs.readFileSync(filePath, 'utf8'))
     } catch (e) {

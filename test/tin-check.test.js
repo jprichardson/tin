@@ -20,7 +20,7 @@ describe('tin --check', function() {
   })
 
   describe('> when any of the three files dont exist', function() {
-    it('should create the files', function() {
+    it('should fail if one of the files has an error', function() {
       F (fs.existsSync(NPM_FILE))
       F (fs.existsSync(COMPONENT_FILE))
       F (fs.existsSync(BOWER_FILE))
@@ -32,6 +32,17 @@ describe('tin --check', function() {
       T (res.output.indexOf(NPM_FILE) >= 0)
       T (res.output.indexOf('Check failed') >= 0)
     })
+
+    it('should pass if at least one file is valid and others do not exist', function() {
+      F (fs.existsSync(NPM_FILE))
+      F (fs.existsSync(COMPONENT_FILE))
+      F (fs.existsSync(BOWER_FILE))
+
+      fs.writeFileSync(NPM_FILE, '{}') //superfluous comma
+      var res = shell.exec(TIN_PATH + ' --check', {silent: true})
+      EQ (res.code, 0)
+    })
   })
+
 
 })
