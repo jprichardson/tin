@@ -43,7 +43,7 @@ Any of the three files `package.json`, `component.json`, and `bower.json` must e
       -d, --desc [description]   Update package descriptions.
       -k, --keywords [keywords]  Add to package keywords.
       -m, --main [script]        Update main script file.
-      -n, --name [name]          Update name of the packgae.
+      -n, --name [name]          Update name of the package.
       -r, --repo [repo]          Update source repository (GitHub shorthand).
       -v, --version [version]    Update package versions.
 
