@@ -21,7 +21,7 @@ program.option('-p, --path [path]', 'The path that contains the package files. D
   .option('-d, --desc [description]', 'Update package descriptions.')
   .option('-k, --keywords [keywords]', 'Add to package keywords.')
   .option('-m, --main [script]', 'Update main script file.')
-  .option('-n, --name [name]', 'Update name of the packgae.')
+  .option('-n, --name [name]', 'Update name of the package.')
   .option('-r, --repo [repo]', 'Update source repository (GitHub shorthand).')
   .option('-v, --version [version]', 'Update package versions.')
   .parse(process.argv)
