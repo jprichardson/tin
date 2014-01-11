@@ -33,4 +33,14 @@ describe('tin', function() {
       EQ (fs.readJsonSync(COMPONENT_FILE).main, fieldVal)
     })
   })
+  describe('arg: version', function() {
+    it('should create the main field', function() {
+      var fieldVal = "1.0.3"
+      shell.exec(TIN_PATH + ' -v ' + fieldVal, {silent: true})
+    
+      EQ (fs.readJsonSync(NPM_FILE).version, fieldVal)
+      EQ (fs.readJsonSync(BOWER_FILE).version, fieldVal)
+      EQ (fs.readJsonSync(COMPONENT_FILE).version, fieldVal)
+    })
+  })
 })
