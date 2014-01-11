@@ -36,16 +36,18 @@ Any of the three files `package.json`, `component.json`, and `bower.json` must e
 
     Options:
 
-      -h, --help                 output usage information
-      -p, --path [path]          The path that contains the package files. Defaults to the current directory.
-      --create                   If any of the files don't exist, it creates them.
-      --check                    Check to verify files are valid. Don't use in conjuction with any other options.
-      -d, --desc [description]   Update package descriptions.
-      -k, --keywords [keywords]  Add to package keywords.
-      -m, --main [script]        Update main script file.
-      -n, --name [name]          Update name of the package.
-      -r, --repo [repo]          Update source repository (GitHub shorthand).
-      -v, --version [version]    Update package versions.
+    -h, --help                                    output usage information
+    -p, --path [path]                             The path that contains the package files. Defaults to the current directory.
+    --create                                      If any of the files don't exist, it creates them.
+    --check                                       Check to verify files are valid. Don't use in conjunction with any other options.
+    -d, --desc [description]                      Update package descriptions.
+    -k, --keywords [keywords]                     Add to package keywords.
+    -m, --main [script]                           Update main script file.
+    -n, --name [name]                             Update name of the package.
+    -r, --repo [repo]                             Update source repository (GitHub shorthand).
+    -v, --version [version]                       Update package versions.
+    -b, --bump [major, minor, patch, prerelease]  Bump package version by increment
+
 
 
 ### create

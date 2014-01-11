@@ -34,9 +34,53 @@ describe('tin', function() {
     })
   })
   describe('arg: version', function() {
-    it('should create the main field', function() {
+    it('should create the version field', function() {
       var fieldVal = "1.0.3"
       shell.exec(TIN_PATH + ' -v ' + fieldVal, {silent: true})
+    
+      EQ (fs.readJsonSync(NPM_FILE).version, fieldVal)
+      EQ (fs.readJsonSync(BOWER_FILE).version, fieldVal)
+      EQ (fs.readJsonSync(COMPONENT_FILE).version, fieldVal)
+    })
+    it('it should be able to major bump it', function() {
+      var fieldVal = "2.0.0"
+      shell.exec(TIN_PATH + ' -v 1.0.3', {silent: true})
+      shell.exec(TIN_PATH + ' -b major', {silent: true})
+    
+      EQ (fs.readJsonSync(NPM_FILE).version, fieldVal)
+      EQ (fs.readJsonSync(BOWER_FILE).version, fieldVal)
+      EQ (fs.readJsonSync(COMPONENT_FILE).version, fieldVal)
+    })
+    it('it should be able to major bump it with out something there', function() {
+      var fieldVal = "1.0.0"
+      shell.exec(TIN_PATH + ' -b major', {silent: true})
+    
+      EQ (fs.readJsonSync(NPM_FILE).version, fieldVal)
+      EQ (fs.readJsonSync(BOWER_FILE).version, fieldVal)
+      EQ (fs.readJsonSync(COMPONENT_FILE).version, fieldVal)
+    })
+    it('it should be able to minor bump it', function() {
+      var fieldVal = "1.1.0"
+      shell.exec(TIN_PATH + ' -v 1.0.3', {silent: true})
+      shell.exec(TIN_PATH + ' -b minor', {silent: true})
+    
+      EQ (fs.readJsonSync(NPM_FILE).version, fieldVal)
+      EQ (fs.readJsonSync(BOWER_FILE).version, fieldVal)
+      EQ (fs.readJsonSync(COMPONENT_FILE).version, fieldVal)
+    })
+    it('it should be able to patch bump it', function() {
+      var fieldVal = "1.0.4"
+      shell.exec(TIN_PATH + ' -v 1.0.3', {silent: true})
+      shell.exec(TIN_PATH + ' -b patch', {silent: true})
+    
+      EQ (fs.readJsonSync(NPM_FILE).version, fieldVal)
+      EQ (fs.readJsonSync(BOWER_FILE).version, fieldVal)
+      EQ (fs.readJsonSync(COMPONENT_FILE).version, fieldVal)
+    })
+    it('it should be able to patch bump it', function() {
+      var fieldVal = "1.0.3-0"
+      shell.exec(TIN_PATH + ' -v 1.0.3', {silent: true})
+      shell.exec(TIN_PATH + ' -b prerelease', {silent: true})
     
       EQ (fs.readJsonSync(NPM_FILE).version, fieldVal)
       EQ (fs.readJsonSync(BOWER_FILE).version, fieldVal)

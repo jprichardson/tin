@@ -26,7 +26,8 @@
   ],
   "dependencies": {
     "commander": "~2.0.0",
-    "string": "~1.6.0"
+    "string": "~1.6.0",
+    "semver": "~2.2.1"
   },
   "scripts": {
     "test": "mocha test"
