@@ -49,52 +49,47 @@ if (program.check) {
 
 files.forEach(function(file) {
   var filePath = path.join(program.path, file)
-    fs.readFile(filePath, 'utf8', function(err,rawdata){
-      if(err){
-        if(program.create){
-          rawdata = "{}";
-        }else{
-          return;
-        }
-      }
+  if (!fs.existsSync(filePath) && program.create) {
+    fs.writeFileSync(filePath, '{}', 'utf8')
+  }
 
-      var data;
-      try {
-        data = JSON.parse(rawdata);
-      } catch (e){
-        console.error("\n  Unable to parse: %s. Aborting.\n", filePath)
-        process.exit(1)
-      }
-      updateCommonFields(program, data)
+  if (fs.existsSync(filePath)) {
+    try {
+      var data = JSON.parse(fs.readFileSync(filePath, 'utf8'))
+    } catch (e) {
+      console.error("\n  Unable to parse: %s. Aborting.\n", filePath)
+      process.exit(1)
+    }
+    updateCommonFields(program, data)
 
-      if (program.main) {
-        if (file == 'component.json') {
-          if (!data.scripts) data.scripts = []
-          if (data.scripts.indexOf(program.main) < 0)
-            data.scripts.unshift(program.main)
-        }
-        
-        data.main = program.main
+    if (program.main) {
+      if (file == 'component.json') {
+        if (!data.scripts) data.scripts = []
+        if (data.scripts.indexOf(program.main) < 0)
+          data.scripts.unshift(program.main)
       }
+      
+      data.main = program.main
+    }
 
-      if (program.repo) {
-        if (file == 'package.json') {
-          if (!data.repository) data.repository = {url: '', type: 'git'}
-          data.repository.url = program.repo
-        } else if (file == 'component.json' && program.repo.indexOf('github.com'))  {
-          var repoData = program.repo.split('/')
-          var ghrepo = repoData.pop()
-          var ghuser = repoData.pop()
-          if (S(ghrepo).endsWith('.git')) ghrepo = S(ghrepo).chompRight('.git')
-          data.repo = ghuser + '/' + ghrepo
-        } else {
-          data.repo = program.repo
-        }
+    if (program.repo) {
+      if (file == 'package.json') {
+        if (!data.repository) data.repository = {url: '', type: 'git'}
+        data.repository.url = program.repo
+      } else if (file == 'component.json' && program.repo.indexOf('github.com'))  {
+        var repoData = program.repo.split('/')
+        var ghrepo = repoData.pop()
+        var ghuser = repoData.pop()
+        if (S(ghrepo).endsWith('.git')) ghrepo = S(ghrepo).chompRight('.git')
+        data.repo = ghuser + '/' + ghrepo
+      } else {
+        data.repo = program.repo
       }
+    }
 
-      data = organizeFields(data)
-      fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf8')
-    });
+    data = organizeFields(data)
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8')
+  }
 })
 
 function updateCommonFields (program, data) {
