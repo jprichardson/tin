@@ -1,3 +1,7 @@
+0.4.0 / 2014-01-14
+------------------
+* added `--bump` See #12
+
 0.3.2 / 2013-12-06
 ------------------
 * check shouldn't fail if package file doesn't exist. Closes #9
