@@ -4,6 +4,7 @@ var program = require('commander')
   , path = require('path')
   , fs = require('fs')
   , S = require('string')
+  , semver = require('semver')
 
 program.version(require('../package.json').version)
 
@@ -17,13 +18,14 @@ if (process.argv.length === 3) //if only -v or --version
 
 program.option('-p, --path [path]', 'The path that contains the package files. Defaults to the current directory.', process.cwd())
   .option('--create', "If any of the files don't exist, it creates them.")
-  .option('--check', "Check to verify files are valid. Don't use in conjuction with any other options.")
+  .option('--check', "Check to verify files are valid. Don't use in conjunction with any other options.")
   .option('-d, --desc [description]', 'Update package descriptions.')
   .option('-k, --keywords [keywords]', 'Add to package keywords.')
   .option('-m, --main [script]', 'Update main script file.')
   .option('-n, --name [name]', 'Update name of the package.')
   .option('-r, --repo [repo]', 'Update source repository (GitHub shorthand).')
   .option('-v, --version [version]', 'Update package versions.')
+  .option('-b, --bump [major, minor, patch, prerelease]', 'Bump package version by increment')
   .parse(process.argv)
 
   var files = ['package.json', 'component.json', 'bower.json']
@@ -91,7 +93,9 @@ files.forEach(function(file) {
 })
 
 function updateCommonFields (program, data) {
-  if (typeof program.version != 'function') //hardcoded commander.js
+  if(typeof program.bump !== 'undefined') {
+    data.version = semver.inc(data.version||'0.0.0', program.bump, true);
+  } else if (typeof program.version != 'function') //hardcoded commander.js
     data.version = program.version
   
   if (program.desc)
