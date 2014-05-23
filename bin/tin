@@ -50,7 +50,7 @@ if (program.check) {
 files.forEach(function(file) {
   var filePath = path.join(program.path, file)
   if (!fs.existsSync(filePath) && program.create) {
-    fs.writeFileSync(filePath, '{}', 'utf8')
+    fs.writeFileSync(filePath, '{}\n', 'utf8')
   }
 
   if (fs.existsSync(filePath)) {
@@ -88,7 +88,7 @@ files.forEach(function(file) {
     }
 
     data = organizeFields(data)
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8')
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2) + '\n', 'utf8')
   }
 })
 
