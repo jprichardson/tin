@@ -58,7 +58,7 @@ creates any of the package files if they don't exist:
 
 also, if any of the files do exist, it won't overwrite them, can pass other params too:
 
-    tin --create -name awesome
+    tin --create --name awesome
 
 
 ### check
